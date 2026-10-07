@@ -105,7 +105,7 @@ export const MapLibreMap = () => {
         height: `calc(100dvh - var(--header-height))`,
       }}
       onClick={onMapClick}
-      className={showPils ? 'map-pils' : undefined}
+      className={showPils ? 'map-pils' : 'map-regn'}
     >
       <Overlay>
         <Button variant="contained" onClick={togglePils}>

@@ -29,3 +29,42 @@ code {
 .map-pils .maplibregl-canvas {
   filter: grayscale(1) sepia(1) saturate(4) hue-rotate(290deg) brightness(1.05);
 }
+
+/* Regnvær utenfor pilsmodus: grått kart med regn over (men under overlayet) */
+.map-regn .maplibregl-canvas {
+  filter: grayscale(0.85) brightness(0.85) contrast(0.95);
+}
+
+.map-regn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: rgba(60, 70, 85, 0.12);
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='120'%20height='120'%3E%3Cpath%20d='M10%205l2.3%2014%20M45%2040l2.3%2014%20M80%2015l2.3%2014%20M105%2070l2.3%2014%20M25%2085l2.3%2014%20M65%20100l2.3%2014%20M100%2030l2.3%2014'%20stroke='rgba(220,228,240,0.7)'%20stroke-width='1.2'%20stroke-linecap='round'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='80'%20height='80'%3E%3Cpath%20d='M15%2010l1.5%209%20M50%2030l1.5%209%20M70%2058l1.5%209%20M30%2060l1.5%209%20M5%2040l1.5%209'%20stroke='rgba(220,228,240,0.45)'%20stroke-width='1'%20stroke-linecap='round'/%3E%3C/svg%3E");
+  animation: regn 0.5s linear infinite;
+}
+
+/* Overlayet skal ligge over regnet */
+.map-regn .maplibregl-children {
+  z-index: 2;
+}
+
+/* Flytter hver flis nøyaktig én flisstørrelse, så animasjonen går sømløst i loop.
+   Den fjerne flisen er mindre og beveger seg kortere — det gir dybde. */
+@keyframes regn {
+  to {
+    background-position:
+      20px 120px,
+      13px 80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-regn::after {
+    animation: none;
+  }
+}
