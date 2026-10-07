@@ -40,6 +40,63 @@ type BarDetails = {
   prices: BarPrice[];
 };
 
+// Strukturert versjon av teksten i `valid`, slik at kartet kan finne ut
+// hvilken pris som gjelder akkurat nå. Tider er minutter etter midnatt og
+// dager følger Date.getDay() (0 = søndag).
+type Validity =
+  | { kind: 'always' }
+  | { kind: 'fallback' }
+  | { kind: 'window'; days: number[]; from?: number; to?: number }
+  | { kind: 'unknown' };
+
+const WEEKDAYS = [
+  'søndag',
+  'mandag',
+  'tirsdag',
+  'onsdag',
+  'torsdag',
+  'fredag',
+  'lørdag',
+];
+
+// "Alle dager", "fredag", "mandag - lørdag" eller "mandag, onsdag - fredag"
+const parseDays = (text: string): number[] | undefined => {
+  if (text.toLowerCase() === 'alle dager') return [0, 1, 2, 3, 4, 5, 6];
+
+  const days: number[] = [];
+  for (const part of text.toLowerCase().split(',')) {
+    const [start, end = start] = part.split('-').map((d) => d.trim());
+    const startIndex = WEEKDAYS.indexOf(start);
+    const endIndex = WEEKDAYS.indexOf(end);
+    if (startIndex === -1 || endIndex === -1) return undefined;
+    // Gå fra start til slutt, og rundt søndag ved behov (f.eks. fre - søn)
+    for (let i = startIndex; ; i = (i + 1) % 7) {
+      days.push(i);
+      if (i === endIndex) break;
+    }
+  }
+  return days;
+};
+
+const parseValidity = (valid: string): Validity => {
+  if (valid === 'Prisen er alltid gyldig') return { kind: 'always' };
+  if (valid === 'Gyldig når ingen annen pris gjelder') {
+    return { kind: 'fallback' };
+  }
+
+  const match = valid.match(/^Gyldig (før|etter) kl (\d{2}):(\d{2}), (.+)$/);
+  const days = match && parseDays(match[4]);
+  if (!match || !days) {
+    console.warn(`  ⚠ Forstår ikke gyldighet: "${valid}"`);
+    return { kind: 'unknown' };
+  }
+
+  const minutes = Number(match[2]) * 60 + Number(match[3]);
+  return match[1] === 'før'
+    ? { kind: 'window', days, to: minutes }
+    : { kind: 'window', days, from: minutes };
+};
+
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const fetchPageData = async (path: string) => {
@@ -89,6 +146,7 @@ const main = async () => {
             price,
             pint,
             valid,
+            validity: parseValidity(valid),
             priceChecked: price_checked,
           }))
           .sort((a, b) => a.pint - b.pint),

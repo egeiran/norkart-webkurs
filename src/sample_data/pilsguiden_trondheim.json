@@ -2,42 +2,10 @@
   "type": "FeatureCollection",
   "metadata": {
     "source": "https://www.pilsguiden.no/liste/trondelag/trondheim",
-    "fetchedAt": "2026-10-07T15:54:21.219Z",
-    "medianPint": 124
+    "fetchedAt": "2026-10-07T16:08:26.894Z",
+    "medianPint": 125
   },
   "features": [
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.393448,
-          63.427394
-        ]
-      },
-      "properties": {
-        "id": 1680,
-        "name": "Bifrons Trondheim",
-        "address": "Bispegata 9a, 7013 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/bifrons-trondheim",
-        "prices": [
-          {
-            "price": 49,
-            "pint": 61,
-            "valid": "Gyldig før kl 18:00, mandag - lørdag",
-            "priceChecked": "2026-08-28T14:18:46.206834+02:00"
-          },
-          {
-            "price": 109,
-            "pint": 136,
-            "valid": "Gyldig når ingen annen pris gjelder",
-            "priceChecked": "2026-04-17T14:50:47.359+02:00"
-          }
-        ]
-      }
-    },
     {
       "type": "Feature",
       "geometry": {
@@ -59,12 +27,28 @@
             "price": 49,
             "pint": 61,
             "valid": "Gyldig før kl 19:00, Alle dager",
+            "validity": {
+              "kind": "window",
+              "days": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "to": 1140
+            },
             "priceChecked": "2026-09-24T16:17:08.449592+02:00"
           },
           {
             "price": 79,
             "pint": 99,
             "valid": "Gyldig når ingen annen pris gjelder",
+            "validity": {
+              "kind": "fallback"
+            },
             "priceChecked": "2026-04-11T19:41:43.301+02:00"
           }
         ]
@@ -91,12 +75,28 @@
             "price": 59,
             "pint": 74,
             "valid": "Gyldig før kl 21:00, Alle dager",
+            "validity": {
+              "kind": "window",
+              "days": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "to": 1260
+            },
             "priceChecked": "2026-08-17T17:22:23.162734+02:00"
           },
           {
             "price": 89,
             "pint": 111,
             "valid": "Gyldig når ingen annen pris gjelder",
+            "validity": {
+              "kind": "fallback"
+            },
             "priceChecked": "2026-07-25T21:07:01.8606+02:00"
           }
         ]
@@ -123,6 +123,9 @@
             "price": 60,
             "pint": 75,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-08-20T23:34:25.922443+02:00"
           }
         ]
@@ -149,6 +152,9 @@
             "price": 65,
             "pint": 81,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-05T14:13:50.354+02:00"
           }
         ]
@@ -175,33 +181,10 @@
             "price": 65,
             "pint": 81,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-05T14:09:53.702+02:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.403049,
-          63.4330851
-        ]
-      },
-      "properties": {
-        "id": 241,
-        "name": "Super Hero Burger",
-        "address": "Olav Tryggvassons gate 1, 7011 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/super-hero-burger",
-        "prices": [
-          {
-            "price": 69,
-            "pint": 86,
-            "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2025-10-29T16:25:53.148+01:00"
           }
         ]
       }
@@ -227,39 +210,10 @@
             "price": 69,
             "pint": 86,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-03-01T18:53:53.27+01:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.411906,
-          63.434652
-        ]
-      },
-      "properties": {
-        "id": 772,
-        "name": "Heidi's Bier Bar Trondheim",
-        "address": "Tmv-kaia 17, 7014 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/heidis-bier-bar-trondheim",
-        "prices": [
-          {
-            "price": 69,
-            "pint": 86,
-            "valid": "Gyldig før kl 22:00, tirsdag - søndag",
-            "priceChecked": "2026-03-25T20:26:58.946+01:00"
-          },
-          {
-            "price": 89,
-            "pint": 111,
-            "valid": "Gyldig når ingen annen pris gjelder",
-            "priceChecked": "2026-08-28T13:41:04.586764+02:00"
           }
         ]
       }
@@ -285,7 +239,86 @@
             "price": 69,
             "pint": 86,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-02-25T13:08:05.74+01:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.411906,
+          63.434652
+        ]
+      },
+      "properties": {
+        "id": 772,
+        "name": "Heidi's Bier Bar Trondheim",
+        "address": "Tmv-kaia 17, 7014 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.4,
+        "url": "https://www.pilsguiden.no/bar/heidis-bier-bar-trondheim",
+        "prices": [
+          {
+            "price": 69,
+            "pint": 86,
+            "valid": "Gyldig før kl 22:00, tirsdag - søndag",
+            "validity": {
+              "kind": "window",
+              "days": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                0
+              ],
+              "to": 1320
+            },
+            "priceChecked": "2026-03-25T20:26:58.946+01:00"
+          },
+          {
+            "price": 89,
+            "pint": 111,
+            "valid": "Gyldig når ingen annen pris gjelder",
+            "validity": {
+              "kind": "fallback"
+            },
+            "priceChecked": "2026-08-28T13:41:04.586764+02:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.403049,
+          63.4330851
+        ]
+      },
+      "properties": {
+        "id": 241,
+        "name": "Super Hero Burger",
+        "address": "Olav Tryggvassons gate 1, 7011 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.4,
+        "url": "https://www.pilsguiden.no/bar/super-hero-burger",
+        "prices": [
+          {
+            "price": 69,
+            "pint": 86,
+            "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2025-10-29T16:25:53.148+01:00"
           }
         ]
       }
@@ -311,6 +344,9 @@
             "price": 93,
             "pint": 93,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2024-05-05T16:13:57.443+02:00"
           }
         ]
@@ -337,6 +373,9 @@
             "price": 98,
             "pint": 98,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-07-25T23:37:48.73591+02:00"
           }
         ]
@@ -363,6 +402,9 @@
             "price": 99,
             "pint": 99,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-07-25T22:36:00.794188+02:00"
           }
         ]
@@ -389,6 +431,9 @@
             "price": 104,
             "pint": 104,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-02T11:28:20.632+02:00"
           }
         ]
@@ -415,39 +460,10 @@
             "price": 105,
             "pint": 105,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-03-20T12:00:28.864+01:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.3954047,
-          63.422434
-        ]
-      },
-      "properties": {
-        "id": 1536,
-        "name": "Studentersamfundet i Trondhjem",
-        "address": "Elgeseter Gate 1, 7030 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/studentersamfundet-i-trondhjem",
-        "prices": [
-          {
-            "price": 85,
-            "pint": 106,
-            "valid": "Gyldig når ingen annen pris gjelder",
-            "priceChecked": "2026-08-30T14:23:20.116427+02:00"
-          },
-          {
-            "price": 95,
-            "pint": 119,
-            "valid": "Gyldig etter kl 21:00, fredag - lørdag",
-            "priceChecked": "2026-08-30T14:23:52.151942+02:00"
           }
         ]
       }
@@ -473,7 +489,53 @@
             "price": 106,
             "pint": 106,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-10-10T14:41:13.156+02:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.3954047,
+          63.422434
+        ]
+      },
+      "properties": {
+        "id": 1536,
+        "name": "Studentersamfundet i Trondhjem",
+        "address": "Elgeseter Gate 1, 7030 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.4,
+        "url": "https://www.pilsguiden.no/bar/studentersamfundet-i-trondhjem",
+        "prices": [
+          {
+            "price": 85,
+            "pint": 106,
+            "valid": "Gyldig når ingen annen pris gjelder",
+            "validity": {
+              "kind": "fallback"
+            },
+            "priceChecked": "2026-08-30T14:23:20.116427+02:00"
+          },
+          {
+            "price": 95,
+            "pint": 119,
+            "valid": "Gyldig etter kl 21:00, fredag - lørdag",
+            "validity": {
+              "kind": "window",
+              "days": [
+                5,
+                6
+              ],
+              "from": 1260
+            },
+            "priceChecked": "2026-08-30T14:23:52.151942+02:00"
           }
         ]
       }
@@ -499,6 +561,9 @@
             "price": 109,
             "pint": 109,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-08T16:35:18.675+02:00"
           }
         ]
@@ -525,6 +590,9 @@
             "price": 109,
             "pint": 109,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-07T21:48:34.142+02:00"
           }
         ]
@@ -551,33 +619,10 @@
             "price": 110,
             "pint": 110,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2024-05-10T22:40:37.563+02:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.369333,
-          63.429558
-        ]
-      },
-      "properties": {
-        "id": 1175,
-        "name": "Ila Brainnstasjon",
-        "address": "Ilevollen 32B, 7018 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.5,
-        "url": "https://www.pilsguiden.no/bar/ila-brainnstasjon",
-        "prices": [
-          {
-            "price": 115,
-            "pint": 115,
-            "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2025-09-22T17:49:25.845+02:00"
           }
         ]
       }
@@ -603,7 +648,39 @@
             "price": 115,
             "pint": 115,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-08-12T14:31:56.672725+02:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.369333,
+          63.429558
+        ]
+      },
+      "properties": {
+        "id": 1175,
+        "name": "Ila Brainnstasjon",
+        "address": "Ilevollen 32B, 7018 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.5,
+        "url": "https://www.pilsguiden.no/bar/ila-brainnstasjon",
+        "prices": [
+          {
+            "price": 115,
+            "pint": 115,
+            "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2025-09-22T17:49:25.845+02:00"
           }
         ]
       }
@@ -629,6 +706,9 @@
             "price": 95,
             "pint": 119,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-03-13T10:55:58.413+01:00"
           }
         ]
@@ -655,6 +735,9 @@
             "price": 119,
             "pint": 119,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-04-16T21:52:33.34+02:00"
           }
         ]
@@ -681,6 +764,9 @@
             "price": 119,
             "pint": 119,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-03T18:52:18.121+02:00"
           }
         ]
@@ -707,6 +793,9 @@
             "price": 120,
             "pint": 120,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-02T17:25:35.325+02:00"
           }
         ]
@@ -733,6 +822,9 @@
             "price": 120,
             "pint": 120,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-05T23:44:16.889+02:00"
           }
         ]
@@ -759,6 +851,9 @@
             "price": 120,
             "pint": 120,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-27T22:58:57.046588+02:00"
           }
         ]
@@ -785,6 +880,9 @@
             "price": 99,
             "pint": 124,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2024-05-05T16:08:32.033+02:00"
           }
         ]
@@ -811,6 +909,9 @@
             "price": 125,
             "pint": 125,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-05-08T13:28:37.935+02:00"
           }
         ]
@@ -834,9 +935,12 @@
         "url": "https://www.pilsguiden.no/bar/flipper-kafe",
         "prices": [
           {
-            "price": 129,
-            "pint": 129,
+            "price": 50,
+            "pint": 50,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-13T13:12:12.755+02:00"
           }
         ]
@@ -863,6 +967,9 @@
             "price": 129,
             "pint": 129,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-06T19:47:27.7+02:00"
           }
         ]
@@ -889,6 +996,9 @@
             "price": 129,
             "pint": 129,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-03-13T10:58:01.707+01:00"
           }
         ]
@@ -915,6 +1025,9 @@
             "price": 105,
             "pint": 131,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2024-05-10T22:41:27.187+02:00"
           }
         ]
@@ -941,33 +1054,10 @@
             "price": 131,
             "pint": 131,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2024-05-10T22:47:28.142+02:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.4471012,
-          63.4570564
-        ]
-      },
-      "properties": {
-        "id": 247,
-        "name": "Ladekaia",
-        "address": "Leiv Eirikssons vei 42, 7040 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/ladekaia",
-        "prices": [
-          {
-            "price": 106,
-            "pint": 132,
-            "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2024-05-10T22:39:37.412+02:00"
           }
         ]
       }
@@ -993,7 +1083,39 @@
             "price": 106,
             "pint": 132,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-03-20T09:59:33.411+01:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.4471012,
+          63.4570564
+        ]
+      },
+      "properties": {
+        "id": 247,
+        "name": "Ladekaia",
+        "address": "Leiv Eirikssons vei 42, 7040 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.4,
+        "url": "https://www.pilsguiden.no/bar/ladekaia",
+        "prices": [
+          {
+            "price": 106,
+            "pint": 132,
+            "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2024-05-10T22:39:37.412+02:00"
           }
         ]
       }
@@ -1019,6 +1141,9 @@
             "price": 108,
             "pint": 135,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-03T18:52:49.118+02:00"
           }
         ]
@@ -1045,7 +1170,57 @@
             "price": 109,
             "pint": 136,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2024-05-10T22:37:38.621+02:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.393448,
+          63.427394
+        ]
+      },
+      "properties": {
+        "id": 1680,
+        "name": "Bifrons Trondheim",
+        "address": "Bispegata 9a, 7013 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.4,
+        "url": "https://www.pilsguiden.no/bar/bifrons-trondheim",
+        "prices": [
+          {
+            "price": 49,
+            "pint": 61,
+            "valid": "Gyldig før kl 18:00, mandag - lørdag",
+            "validity": {
+              "kind": "window",
+              "days": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "to": 1080
+            },
+            "priceChecked": "2026-08-28T14:18:46.206834+02:00"
+          },
+          {
+            "price": 109,
+            "pint": 136,
+            "valid": "Gyldig når ingen annen pris gjelder",
+            "validity": {
+              "kind": "fallback"
+            },
+            "priceChecked": "2026-04-17T14:50:47.359+02:00"
           }
         ]
       }
@@ -1071,33 +1246,10 @@
             "price": 136,
             "pint": 136,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-03-25T13:13:50.114+01:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.4137085,
-          63.434414
-        ]
-      },
-      "properties": {
-        "id": 1050,
-        "name": "Brooklyn Diner and Sportsbar Trondheim",
-        "address": "Beddingen 2, 7042 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/brooklyn-diner-and-sportsbar-trondheim",
-        "prices": [
-          {
-            "price": 109,
-            "pint": 136,
-            "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2025-03-25T13:44:10.292+01:00"
           }
         ]
       }
@@ -1123,7 +1275,39 @@
             "price": 109,
             "pint": 136,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-03-24T16:57:52.087+01:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.395884,
+          63.430942
+        ]
+      },
+      "properties": {
+        "id": 953,
+        "name": "San Sebastian Torget",
+        "address": "Kongens gate 16, 7011 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.4,
+        "url": "https://www.pilsguiden.no/bar/san-sebastian-torget",
+        "prices": [
+          {
+            "price": 109,
+            "pint": 136,
+            "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2026-04-06T00:04:39.728+02:00"
           }
         ]
       }
@@ -1149,6 +1333,9 @@
             "price": 109,
             "pint": 136,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-04-02T20:46:46.422+02:00"
           }
         ]
@@ -1175,12 +1362,24 @@
             "price": 79,
             "pint": 99,
             "valid": "Gyldig før kl 22:00, torsdag - lørdag",
+            "validity": {
+              "kind": "window",
+              "days": [
+                4,
+                5,
+                6
+              ],
+              "to": 1320
+            },
             "priceChecked": "2026-05-24T15:13:17.952121+02:00"
           },
           {
             "price": 109,
             "pint": 136,
             "valid": "Gyldig når ingen annen pris gjelder",
+            "validity": {
+              "kind": "fallback"
+            },
             "priceChecked": "2026-05-24T15:12:42.985821+02:00"
           }
         ]
@@ -1191,23 +1390,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          10.395884,
-          63.430942
+          10.4137085,
+          63.434414
         ]
       },
       "properties": {
-        "id": 953,
-        "name": "San Sebastian Torget",
-        "address": "Kongens gate 16, 7011 Trondheim",
+        "id": 1050,
+        "name": "Brooklyn Diner and Sportsbar Trondheim",
+        "address": "Beddingen 2, 7042 Trondheim",
         "brewery": "E.C. Dahls",
         "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/san-sebastian-torget",
+        "url": "https://www.pilsguiden.no/bar/brooklyn-diner-and-sportsbar-trondheim",
         "prices": [
           {
             "price": 109,
             "pint": 136,
             "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2026-04-06T00:04:39.728+02:00"
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2025-03-25T13:44:10.292+01:00"
           }
         ]
       }
@@ -1233,6 +1435,9 @@
             "price": 109,
             "pint": 136,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-08-10T10:08:01.415+02:00"
           }
         ]
@@ -1259,6 +1464,9 @@
             "price": 139,
             "pint": 139,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-05T23:59:35.624+02:00"
           }
         ]
@@ -1269,23 +1477,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          10.411639,
-          63.434739
+          10.378035,
+          63.361954
         ]
       },
       "properties": {
-        "id": 890,
-        "name": "Egon Solsiden",
-        "address": "TMV-Kaia 21, 7043 Trondheim",
+        "id": 891,
+        "name": "Egon City Syd",
+        "address": "Østre Rosten 28, 7075 Tiller",
         "brewery": "Ringnes",
         "size": 0.45,
-        "url": "https://www.pilsguiden.no/bar/egon-solsiden",
+        "url": "https://www.pilsguiden.no/bar/egon-city-syd",
         "prices": [
           {
             "price": 126,
             "pint": 140,
             "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2025-07-09T13:21:32.675+02:00"
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2025-07-09T13:21:41.146+02:00"
           }
         ]
       }
@@ -1311,6 +1522,9 @@
             "price": 126,
             "pint": 140,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-09T13:21:14.496+02:00"
           }
         ]
@@ -1337,33 +1551,10 @@
             "price": 126,
             "pint": 140,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-09T13:20:54.299+02:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          10.402544,
-          63.411567
-        ]
-      },
-      "properties": {
-        "id": 1656,
-        "name": "Scandic Lerkendal",
-        "address": "Klæbuveien 127 A, 7031 Trondheim",
-        "brewery": "E.C. Dahls",
-        "size": 0.4,
-        "url": "https://www.pilsguiden.no/bar/scandic-lerkendal",
-        "prices": [
-          {
-            "price": 112,
-            "pint": 140,
-            "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2026-04-06T00:11:07.603+02:00"
           }
         ]
       }
@@ -1389,7 +1580,39 @@
             "price": 126,
             "pint": 140,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-09T13:21:06.243+02:00"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.402544,
+          63.411567
+        ]
+      },
+      "properties": {
+        "id": 1656,
+        "name": "Scandic Lerkendal",
+        "address": "Klæbuveien 127 A, 7031 Trondheim",
+        "brewery": "E.C. Dahls",
+        "size": 0.4,
+        "url": "https://www.pilsguiden.no/bar/scandic-lerkendal",
+        "prices": [
+          {
+            "price": 112,
+            "pint": 140,
+            "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2026-04-06T00:11:07.603+02:00"
           }
         ]
       }
@@ -1415,6 +1638,9 @@
             "price": 126,
             "pint": 140,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-09T13:21:23.424+02:00"
           }
         ]
@@ -1441,6 +1667,9 @@
             "price": 112,
             "pint": 140,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-02-06T14:00:30.086+01:00"
           }
         ]
@@ -1451,23 +1680,26 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          10.378035,
-          63.361954
+          10.411639,
+          63.434739
         ]
       },
       "properties": {
-        "id": 891,
-        "name": "Egon City Syd",
-        "address": "Østre Rosten 28, 7075 Tiller",
+        "id": 890,
+        "name": "Egon Solsiden",
+        "address": "TMV-Kaia 21, 7043 Trondheim",
         "brewery": "Ringnes",
         "size": 0.45,
-        "url": "https://www.pilsguiden.no/bar/egon-city-syd",
+        "url": "https://www.pilsguiden.no/bar/egon-solsiden",
         "prices": [
           {
             "price": 126,
             "pint": 140,
             "valid": "Prisen er alltid gyldig",
-            "priceChecked": "2025-07-09T13:21:41.146+02:00"
+            "validity": {
+              "kind": "always"
+            },
+            "priceChecked": "2025-07-09T13:21:32.675+02:00"
           }
         ]
       }
@@ -1493,6 +1725,9 @@
             "price": 119,
             "pint": 149,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2026-04-06T00:13:44.345+02:00"
           }
         ]
@@ -1519,6 +1754,9 @@
             "price": 119,
             "pint": 149,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-03-24T16:53:52.404+01:00"
           }
         ]
@@ -1545,6 +1783,9 @@
             "price": 120,
             "pint": 150,
             "valid": "Prisen er alltid gyldig",
+            "validity": {
+              "kind": "always"
+            },
             "priceChecked": "2025-07-09T12:13:52.921+02:00"
           }
         ]

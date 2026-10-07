@@ -71,6 +71,12 @@ export const MapLibreMap = () => {
         <Button variant="contained" onClick={togglePilsSteder}>
           {pilsSteder ? 'Skjul pilspriser' : '🍺 Vis pilspriser'}
         </Button>
+        {pilsSteder && (
+          <p style={{ fontSize: '13px', color: '#666', maxWidth: '240px' }}>
+            Jo varmere, jo nærmere billig pils akkurat nå. Zoom inn for å se
+            prisene.
+          </p>
+        )}
       </Overlay>
       {pilsSteder && <PilsLayer steder={pilsSteder} />}
       <DrawComponent />
