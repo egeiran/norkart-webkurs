@@ -11,7 +11,6 @@ import { Overlay } from './Overlay';
 import DrawComponent from './DrawComponent';
 import { Button } from '@mui/material';
 import { PilsLayer } from './PilsLayer';
-import { getPilsSteder, type PilsSted } from '../api/getPilsSteder';
 
 const TRONDHEIM_COORDS: [number, number] = [10.40565401, 63.4156575];
 
@@ -35,13 +34,7 @@ export const MapLibreMap = () => {
     undefined
   );
   const [clickPoint, setClickPoint] = useState<LngLat | undefined>(undefined);
-  const [pilsSteder, setPilsSteder] = useState<PilsSted[] | undefined>(
-    undefined
-  );
-
-  const togglePilsSteder = async () => {
-    setPilsSteder(pilsSteder ? undefined : await getPilsSteder());
-  };
+  const [showPils, setShowPils] = useState(false);
 
   useEffect(() => {
     console.log(pointHoyde, clickPoint);
@@ -68,17 +61,17 @@ export const MapLibreMap = () => {
       <Overlay>
         <h2>Dette er et overlay</h2>
         <p>Legg til funksjonalitet knyttet til kartet.</p>
-        <Button variant="contained" onClick={togglePilsSteder}>
-          {pilsSteder ? 'Skjul pilspriser' : '🍺 Vis pilspriser'}
+        <Button variant="contained" onClick={() => setShowPils(!showPils)}>
+          {showPils ? 'Skjul pilspriser' : '🍺 Vis pilspriser'}
         </Button>
-        {pilsSteder && (
+        {showPils && (
           <p style={{ fontSize: '13px', color: '#666', maxWidth: '240px' }}>
             Jo varmere, jo nærmere billig pils akkurat nå. Zoom inn for å se
             prisene.
           </p>
         )}
       </Overlay>
-      {pilsSteder && <PilsLayer steder={pilsSteder} />}
+      {showPils && <PilsLayer />}
       <DrawComponent />
     </RMap>
   );

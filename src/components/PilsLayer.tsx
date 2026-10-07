@@ -1,6 +1,7 @@
 import type {
   ExpressionSpecification,
   HeatmapLayerSpecification,
+  LngLatBounds,
 } from 'maplibre-gl';
 import {
   RLayer,
@@ -10,11 +11,13 @@ import {
   useMap,
 } from 'maplibre-react-components';
 import { useEffect, useMemo, useState } from 'react';
-import type { PilsPrice, PilsSted } from '../api/getPilsSteder';
+import type { PilsPrice, PilsSted } from '../api/getPilsData';
+import { usePilsData } from '../hooks/usePilsData';
 import {
   getCurrentPrice,
   getPriceColor,
   getPriceLevel,
+  getPriceScale,
 } from '../utils/pilsPris';
 
 // Fra dette zoomnivået vises hvert enkelt sted med pris
@@ -25,19 +28,21 @@ const HEAT_RADIUS_METERS = 350;
 
 // Heatmap-radius oppgis i piksler, så vi regner om fra meter. En piksel dekker
 // halvparten så mange meter for hvert zoomnivå, derfor eksponentiell skala.
-// Langt ute holder vi en minste størrelse så heatmappet ikke forsvinner.
-const TRONDHEIM_LATITUDE = 63.43;
+// Utzoomet går vi over til faste størrelser så heatmappet ikke forsvinner.
+// Meter per piksel varierer med breddegraden, så vi regner fra midt i Norge.
+const REFERENCE_LATITUDE = 63;
 const METERS_PER_PIXEL_AT_ZOOM_0 =
-  (40075016.686 * Math.cos((TRONDHEIM_LATITUDE * Math.PI) / 180)) / 512;
+  (40075016.686 * Math.cos((REFERENCE_LATITUDE * Math.PI) / 180)) / 512;
 const RADIUS_AT_ZOOM_0 = HEAT_RADIUS_METERS / METERS_PER_PIXEL_AT_ZOOM_0;
-const MIN_RADIUS_PIXELS = 20;
 
 const heatmapRadius: ExpressionSpecification = [
   'interpolate',
   ['exponential', 2],
   ['zoom'],
+  5,
+  6,
   10,
-  MIN_RADIUS_PIXELS,
+  20,
   12,
   RADIUS_AT_ZOOM_0 * 2 ** 12,
   20,
@@ -59,6 +64,8 @@ const heatmapPaint: HeatmapLayerSpecification['paint'] = {
     'interpolate',
     ['linear'],
     ['zoom'],
+    5,
+    0.2,
     10,
     0.35,
     DETAIL_ZOOM,
@@ -123,52 +130,87 @@ const useNow = () => {
   return now;
 };
 
-const useIsZoomedIn = (zoom: number) => {
+// Om vi er zoomet inn nok til å vise enkeltsteder, og hvilket område som er
+// synlig. Området oppdateres når kartet har stoppet, for å unngå mange
+// oppdateringer mens man drar i kartet.
+const useMapView = (detailZoom: number) => {
   const map = useMap();
-  const [isZoomedIn, setIsZoomedIn] = useState(() => map.getZoom() >= zoom);
+  const [showDetails, setShowDetails] = useState(
+    () => map.getZoom() >= detailZoom
+  );
+  const [bounds, setBounds] = useState<LngLatBounds>(() => map.getBounds());
+
   useEffect(() => {
-    const onZoom = () => setIsZoomedIn(map.getZoom() >= zoom);
+    const onZoom = () => setShowDetails(map.getZoom() >= detailZoom);
+    const onMoveEnd = () => setBounds(map.getBounds());
     map.on('zoom', onZoom);
+    map.on('moveend', onMoveEnd);
     return () => {
       map.off('zoom', onZoom);
+      map.off('moveend', onMoveEnd);
     };
-  }, [map, zoom]);
-  return isZoomedIn;
+  }, [map, detailZoom]);
+
+  return { showDetails, bounds };
 };
 
-export function PilsLayer({ steder }: { steder: PilsSted[] }) {
+export function PilsLayer() {
   const [hovered, setHovered] = useState<PilsStedNow | undefined>(undefined);
   const now = useNow();
-  const showDetails = useIsZoomedIn(DETAIL_ZOOM);
+  const { showDetails, bounds } = useMapView(DETAIL_ZOOM);
+  const { oversikt, details } = usePilsData();
 
-  const stederNow: PilsStedNow[] = useMemo(() => {
-    const withPrice = steder.map((sted) => ({
-      ...sted,
-      currentPrice: getCurrentPrice(sted.prices, now),
-    }));
-    const pints = withPrice.map((sted) => sted.currentPrice.pint);
-    const min = Math.min(...pints);
-    const max = Math.max(...pints);
-    return withPrice.map((sted) => ({
-      ...sted,
-      priceLevel: getPriceLevel(sted.currentPrice.pint, min, max),
-    }));
-  }, [steder, now]);
+  // Alle steder i landet med prisen som gjelder nå. Er detaljene for stedet
+  // ikke hentet ennå, bruker vi normalprisen fra oversikten.
+  const heatPoints = useMemo(
+    () =>
+      (oversikt?.bars ?? []).map(([id, longitude, latitude, normalPint]) => {
+        const sted = details.get(id);
+        return {
+          longitude,
+          latitude,
+          pint: sted ? getCurrentPrice(sted.prices, now).pint : normalPint,
+        };
+      }),
+    [oversikt, details, now]
+  );
+
+  const priceScale = useMemo(
+    () => getPriceScale(heatPoints.map((point) => point.pint)),
+    [heatPoints]
+  );
 
   const heatmapData: GeoJSON.FeatureCollection = useMemo(
     () => ({
       type: 'FeatureCollection',
-      features: stederNow.map((sted) => ({
+      features: heatPoints.map((point) => ({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [sted.longitude, sted.latitude],
+          coordinates: [point.longitude, point.latitude],
         },
-        properties: { weight: getHeatWeight(sted.priceLevel) },
+        properties: {
+          weight: getHeatWeight(getPriceLevel(point.pint, priceScale)),
+        },
       })),
     }),
-    [stederNow]
+    [heatPoints, priceScale]
   );
+
+  // Pils-ikoner bare for stedene som er synlige
+  const visibleSteder: PilsStedNow[] = useMemo(() => {
+    if (!showDetails) return [];
+    return [...details.values()]
+      .filter((sted) => bounds.contains([sted.longitude, sted.latitude]))
+      .map((sted) => {
+        const currentPrice = getCurrentPrice(sted.prices, now);
+        return {
+          ...sted,
+          currentPrice,
+          priceLevel: getPriceLevel(currentPrice.pint, priceScale),
+        };
+      });
+  }, [showDetails, details, bounds, now, priceScale]);
 
   return (
     <>
@@ -180,20 +222,19 @@ export function PilsLayer({ steder }: { steder: PilsSted[] }) {
         paint={heatmapPaint}
       />
 
-      {showDetails &&
-        stederNow.map((sted) => (
-          <RMarker
-            key={sted.id}
-            longitude={sted.longitude}
-            latitude={sted.latitude}
-          >
-            <PilsMarker
-              sted={sted}
-              onMouseEnter={() => setHovered(sted)}
-              onMouseLeave={() => setHovered(undefined)}
-            />
-          </RMarker>
-        ))}
+      {visibleSteder.map((sted) => (
+        <RMarker
+          key={sted.id}
+          longitude={sted.longitude}
+          latitude={sted.latitude}
+        >
+          <PilsMarker
+            sted={sted}
+            onMouseEnter={() => setHovered(sted)}
+            onMouseLeave={() => setHovered(undefined)}
+          />
+        </RMarker>
+      ))}
 
       {showDetails && hovered && (
         <RPopup

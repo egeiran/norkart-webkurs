@@ -1,4 +1,4 @@
-import type { PilsPrice, PilsValidity } from '../api/getPilsSteder';
+import type { PilsPrice, PilsValidity } from '../api/getPilsData';
 
 // Utelivsdøgnet starter kl 06. Kl 01 natt til lørdag regnes dermed som
 // fredag kveld, slik at "etter kl 21:00, fredag" fortsatt gjelder.
@@ -36,9 +36,20 @@ export const getCurrentPrice = (prices: PilsPrice[], now: Date): PilsPrice => {
   return cheapest(fallback.length > 0 ? fallback : prices);
 };
 
+export type PriceScale = { min: number; max: number };
+
+// Skalaen går fra 5. til 95. persentil, så noen få ekstremt billige eller dyre
+// steder ikke gjør at alle andre havner midt på skalaen
+export const getPriceScale = (pints: number[]): PriceScale => {
+  if (pints.length === 0) return { min: 0, max: 0 };
+  const sorted = [...pints].sort((a, b) => a - b);
+  const percentile = (p: number) => sorted[Math.round(p * (sorted.length - 1))];
+  return { min: percentile(0.05), max: percentile(0.95) };
+};
+
 // 0 = billigst, 1 = dyrest
-export const getPriceLevel = (pint: number, min: number, max: number) =>
-  max === min ? 0 : (pint - min) / (max - min);
+export const getPriceLevel = (pint: number, { min, max }: PriceScale) =>
+  max === min ? 0 : Math.min(1, Math.max(0, (pint - min) / (max - min)));
 
 // Grønn for billig, gul i midten og rød for dyrt
 export const getPriceColor = (level: number) =>
