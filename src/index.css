@@ -25,7 +25,7 @@ code {
   }
 }
 
-/* Pink map: tint only the map canvas so popups and overlays keep their colors */
-.maplibregl-canvas {
+/* Pink map in beer mode: tint only the map canvas so popups and overlays keep their colors */
+.map-pils .maplibregl-canvas {
   filter: grayscale(1) sepia(1) saturate(4) hue-rotate(290deg) brightness(1.05);
 }
