@@ -11,7 +11,7 @@ import { Overlay } from './Overlay';
 import DrawComponent from './DrawComponent';
 import { Button } from '@mui/material';
 import { PilsLayer } from './PilsLayer';
-import { getPilsSteder, type PilsSted } from '../api/getPilsSteder';
+import type { PilsSted } from '../api/getPilsData';
 import { getGangavstander, getPilscrawlRute } from '../api/getPilscrawlRute';
 import {
   avstandFraMatrise,
@@ -44,25 +44,18 @@ export const MapLibreMap = () => {
     undefined
   );
   const [clickPoint, setClickPoint] = useState<LngLat | undefined>(undefined);
-  const [pilsSteder, setPilsSteder] = useState<PilsSted[] | undefined>(
-    undefined
-  );
+  const [showPils, setShowPils] = useState(false);
 
   const [pilscrawl, setPilscrawl] = useState<Pilscrawl | undefined>(undefined);
+  // Stedene som er hentet så langt, dvs. rutene rundt der man har sett på kartet
   const [alleSteder, setAlleSteder] = useState<PilsSted[]>([]);
 
-  useEffect(() => {
-    getPilsSteder().then(setAlleSteder);
-  }, []);
-
-  const togglePilsSteder = async () => {
-    if (pilsSteder) {
+  const togglePils = () => {
+    if (showPils) {
       // Bar crawlen hører til pilskartet, så den forsvinner sammen med det
-      setPilsSteder(undefined);
       setPilscrawl(undefined);
-      return;
     }
-    setPilsSteder(await getPilsSteder());
+    setShowPils(!showPils);
   };
 
   const lagPilscrawl = async (
@@ -112,23 +105,29 @@ export const MapLibreMap = () => {
         height: `calc(100dvh - var(--header-height))`,
       }}
       onClick={onMapClick}
-      className={pilsSteder ? 'map-pils' : 'map-regn'}
+      className={showPils ? 'map-pils' : 'map-regn'}
     >
       <Overlay>
-        <Button variant="contained" onClick={togglePilsSteder}>
-          {pilsSteder ? 'Skjul pilspriser' : '🍺 Vis pilspriser'}
+        <Button variant="contained" onClick={togglePils}>
+          {showPils ? 'Skjul pilspriser' : '🍺 Vis pilspriser'}
         </Button>
-        {pilsSteder && (
-          <PilscrawlPanel
-            steder={alleSteder}
-            crawl={pilscrawl}
-            onLag={lagPilscrawl}
-            onFjern={() => setPilscrawl(undefined)}
-          />
+        {showPils && (
+          <>
+            <p style={{ fontSize: '13px', color: '#666', maxWidth: '320px' }}>
+              Jo varmere, jo nærmere billig pils akkurat nå. Zoom inn for å se
+              prisene.
+            </p>
+            <PilscrawlPanel
+              steder={alleSteder}
+              crawl={pilscrawl}
+              onLag={lagPilscrawl}
+              onFjern={() => setPilscrawl(undefined)}
+            />
+          </>
         )}
       </Overlay>
-      {pilsSteder && <PilsLayer steder={pilsSteder} />}
-      {pilsSteder && pilscrawl && <PilscrawlLayer crawl={pilscrawl} />}
+      {showPils && <PilsLayer onStederLoaded={setAlleSteder} />}
+      {showPils && pilscrawl && <PilscrawlLayer crawl={pilscrawl} />}
       <DrawComponent />
     </RMap>
   );

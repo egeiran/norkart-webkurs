@@ -1,5 +1,4 @@
-import type { LineString } from 'geojson';
-import type { PilsSted } from '../api/getPilsSteder';
+import type { PilsSted } from '../api/getPilsData';
 
 export const GANGFART_KMT = 5;
 export const MIN_ANTALL_STOPP = 2;
@@ -11,7 +10,7 @@ const MAKS_KANDIDATER = 15;
 
 export type Pilscrawl = {
   stopp: PilsSted[];
-  rute?: LineString;
+  rute?: GeoJSON.LineString;
 };
 
 export type Avstand = (fra: PilsSted, til: PilsSted) => number;

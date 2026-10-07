@@ -1,7 +1,7 @@
 import { Autocomplete, Button, MenuItem, TextField } from '@mui/material';
 import { RLayer, RMarker, RSource } from 'maplibre-react-components';
 import { useState } from 'react';
-import type { PilsSted } from '../api/getPilsSteder';
+import type { PilsSted } from '../api/getPilsData';
 import {
   billigstePils,
   GANGFART_KMT,

@@ -1,5 +1,3 @@
-import type { LineString } from 'geojson';
-
 // Norkarts ruteberegner har bare bilnett, så for gange bruker vi OSRM sin
 // gåprofil fra OpenStreetMap. Den kjenner gangstier og gangbruer som Gamle Bybro.
 const OSRM_FOOT_URL = 'https://routing.openstreetmap.de/routed-foot';
@@ -12,7 +10,7 @@ const tilKoordinater = (stopp: Stopp[]) =>
 // Henter en gårute som går innom alle stoppene i rekkefølge
 export const getPilscrawlRute = async (
   stopp: Stopp[]
-): Promise<LineString | undefined> => {
+): Promise<GeoJSON.LineString | undefined> => {
   if (stopp.length < 2) {
     return undefined;
   }
