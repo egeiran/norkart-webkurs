@@ -9,6 +9,9 @@ import { getHoydeFromPunkt } from '../api/getHoydeFromPunkt';
 import { useEffect, useState } from 'react';
 import { Overlay } from './Overlay';
 import DrawComponent from './DrawComponent';
+import { Button } from '@mui/material';
+import { PilsLayer } from './PilsLayer';
+import { getPilsSteder, type PilsSted } from '../api/getPilsSteder';
 
 const TRONDHEIM_COORDS: [number, number] = [10.40565401, 63.4156575];
 
@@ -32,6 +35,13 @@ export const MapLibreMap = () => {
     undefined
   );
   const [clickPoint, setClickPoint] = useState<LngLat | undefined>(undefined);
+  const [pilsSteder, setPilsSteder] = useState<PilsSted[] | undefined>(
+    undefined
+  );
+
+  const togglePilsSteder = async () => {
+    setPilsSteder(pilsSteder ? undefined : await getPilsSteder());
+  };
 
   useEffect(() => {
     console.log(pointHoyde, clickPoint);
@@ -58,7 +68,11 @@ export const MapLibreMap = () => {
       <Overlay>
         <h2>Dette er et overlay</h2>
         <p>Legg til funksjonalitet knyttet til kartet.</p>
+        <Button variant="contained" onClick={togglePilsSteder}>
+          {pilsSteder ? 'Skjul pilspriser' : '🍺 Vis pilspriser'}
+        </Button>
       </Overlay>
+      {pilsSteder && <PilsLayer steder={pilsSteder} />}
       <DrawComponent />
     </RMap>
   );
