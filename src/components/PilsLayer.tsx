@@ -154,11 +154,20 @@ const useMapView = (detailZoom: number) => {
   return { showDetails, bounds };
 };
 
-export function PilsLayer() {
+export function PilsLayer({
+  onStederLoaded,
+}: {
+  // Kalles med alle steder som er hentet så langt, hver gang flere kommer til
+  onStederLoaded?: (steder: PilsSted[]) => void;
+}) {
   const [hovered, setHovered] = useState<PilsStedNow | undefined>(undefined);
   const now = useNow();
   const { showDetails, bounds } = useMapView(DETAIL_ZOOM);
   const { oversikt, details } = usePilsData();
+
+  useEffect(() => {
+    onStederLoaded?.([...details.values()]);
+  }, [details, onStederLoaded]);
 
   // Alle steder i landet med prisen som gjelder nå. Er detaljene for stedet
   // ikke hentet ennå, bruker vi normalprisen fra oversikten.

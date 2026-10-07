@@ -11,6 +11,16 @@ import { Overlay } from './Overlay';
 import DrawComponent from './DrawComponent';
 import { Button } from '@mui/material';
 import { PilsLayer } from './PilsLayer';
+import type { PilsSted } from '../api/getPilsData';
+import { getGangavstander, getPilscrawlRute } from '../api/getPilscrawlRute';
+import {
+  avstandFraMatrise,
+  lagKortestePilscrawl,
+  luftlinje,
+  velgKandidater,
+  type Pilscrawl,
+} from '../utils/pilscrawl';
+import { PilscrawlLayer, PilscrawlPanel } from './PilsCrawl';
 
 const TRONDHEIM_COORDS: [number, number] = [10.40565401, 63.4156575];
 
@@ -36,6 +46,44 @@ export const MapLibreMap = () => {
   const [clickPoint, setClickPoint] = useState<LngLat | undefined>(undefined);
   const [showPils, setShowPils] = useState(false);
 
+  const [pilscrawl, setPilscrawl] = useState<Pilscrawl | undefined>(undefined);
+  // Stedene som er hentet så langt, dvs. rutene rundt der man har sett på kartet
+  const [alleSteder, setAlleSteder] = useState<PilsSted[]>([]);
+
+  const togglePils = () => {
+    if (showPils) {
+      // Bar crawlen hører til pilskartet, så den forsvinner sammen med det
+      setPilscrawl(undefined);
+    }
+    setShowPils(!showPils);
+  };
+
+  const lagPilscrawl = async (
+    start: PilsSted,
+    slutt: PilsSted | null,
+    antall: number
+  ) => {
+    const kandidater = velgKandidater(alleSteder, start, slutt);
+    const punkter = slutt
+      ? [start, ...kandidater, slutt]
+      : [start, ...kandidater];
+    // Ekte gangavstander fra OSRM, med luftlinje som reserve hvis kallet feiler
+    const matrise = await getGangavstander(punkter);
+    const avstand = matrise ? avstandFraMatrise(punkter, matrise) : luftlinje;
+
+    const stopp = lagKortestePilscrawl(
+      start,
+      slutt,
+      kandidater,
+      antall,
+      avstand
+    );
+    setPilscrawl({ stopp });
+    const rute = await getPilscrawlRute(stopp);
+    // Ikke overskriv en nyere crawl hvis brukeren har laget en ny i mellomtiden
+    setPilscrawl((naa) => (naa?.stopp === stopp ? { stopp, rute } : naa));
+  };
+
   useEffect(() => {
     console.log(pointHoyde, clickPoint);
   }, [clickPoint, pointHoyde]);
@@ -57,21 +105,29 @@ export const MapLibreMap = () => {
         height: `calc(100dvh - var(--header-height))`,
       }}
       onClick={onMapClick}
+      className={showPils ? 'map-pils' : undefined}
     >
       <Overlay>
-        <h2>Dette er et overlay</h2>
-        <p>Legg til funksjonalitet knyttet til kartet.</p>
-        <Button variant="contained" onClick={() => setShowPils(!showPils)}>
+        <Button variant="contained" onClick={togglePils}>
           {showPils ? 'Skjul pilspriser' : '🍺 Vis pilspriser'}
         </Button>
         {showPils && (
-          <p style={{ fontSize: '13px', color: '#666', maxWidth: '240px' }}>
-            Jo varmere, jo nærmere billig pils akkurat nå. Zoom inn for å se
-            prisene.
-          </p>
+          <>
+            <p style={{ fontSize: '13px', color: '#666', maxWidth: '320px' }}>
+              Jo varmere, jo nærmere billig pils akkurat nå. Zoom inn for å se
+              prisene.
+            </p>
+            <PilscrawlPanel
+              steder={alleSteder}
+              crawl={pilscrawl}
+              onLag={lagPilscrawl}
+              onFjern={() => setPilscrawl(undefined)}
+            />
+          </>
         )}
       </Overlay>
-      {showPils && <PilsLayer />}
+      {showPils && <PilsLayer onStederLoaded={setAlleSteder} />}
+      {showPils && pilscrawl && <PilscrawlLayer crawl={pilscrawl} />}
       <DrawComponent />
     </RMap>
   );
